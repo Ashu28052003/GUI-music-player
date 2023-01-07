@@ -1,0 +1,32 @@
+import tkinter as tk
+import fnmatch
+import os
+from pygame import mixer
+
+canvas = tk.Tk()
+canvas.title("Music player")
+canvas.geometry("600x800")
+canvas.config(bg = 'black')
+rootpath = "C:\\Users\Ashutosh\Desktop\music player"
+pattern = "*.mp3"
+
+listBox = tk.Listbox(canvas, fg = "chartreuse", bg = "black", width = 500, font = ('ds-digital', 15 ))
+listBox.pack(padx=15, pady=15)
+
+label = tk.Label (canvas, text = '',bg = 'black', fg = 'yellow', font =  ( 'ds-digital',25 ) )
+label.pack( pady = 15)
+
+top = tk.Frame(canvas, bg = "black")
+top.pack(padx = 10, pady = 5, anchor = 'center')
+
+previousButton = tk.Button(canvas, text = "Prev")
+previousButton.pack(pady = 15, in_ = top, side = 'left')
+
+stopButton = tk.Button(canvas, text = "stop")
+stopButton.pack(pady = 15, in_ = top, side = 'left')
+
+for root, dirs, files in os.walk(rootpath):
+    for filename in fnmatch.filter(files, pattern):
+        listBox.insert('end', filename)
+
+canvas.mainloop()
